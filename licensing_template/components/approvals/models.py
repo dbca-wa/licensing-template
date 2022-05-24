@@ -23,7 +23,6 @@ from licensing_template.components.organisations.models import Organisation
 from licensing_template.components.proposals.models import (
     Proposal,
     ProposalUserAction,
-    RequirementDocument,
     ProposalType,
 )
 from licensing_template.components.main.models import (

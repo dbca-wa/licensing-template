@@ -17,8 +17,6 @@ from django.conf.urls import url
 from django.template.response import TemplateResponse
 from django.http import HttpResponse, HttpResponseRedirect
 
-from licensing_template.components.proposals.forms import SectionChecklistForm
-from licensing_template.components.proposals.models import ChecklistQuestion
 from licensing_template.utils import create_helppage_object
 
 # Register your models here.
@@ -32,23 +30,9 @@ class ProposalTypeAdmin(admin.ModelAdmin):
     # exclude=("site",)
 
 
-class ProposalDocumentInline(admin.TabularInline):
-    model = models.ProposalDocument
-    extra = 0
-
-
 @admin.register(models.AmendmentReason)
 class AmendmentReasonAdmin(admin.ModelAdmin):
     list_display = ["reason"]
-
-
-@admin.register(models.AdditionalDocumentType)
-class AdditionalDocumentTypeAdmin(admin.ModelAdmin):
-    list_display = [
-        "name",
-        "enabled",
-    ]
-    list_filter = ("enabled",)
 
 
 @admin.register(models.Proposal)
@@ -62,9 +46,6 @@ class ProposalAdmin(admin.ModelAdmin):
         "submitter",
         "assigned_officer",
         "applicant",
-    ]
-    inlines = [
-        ProposalDocumentInline,
     ]
 
 
@@ -113,59 +94,6 @@ class HelpPageAdmin(admin.ModelAdmin):
             application_type="T Class", help_type=models.HelpPage.HELP_TEXT_INTERNAL
         )
         return HttpResponseRedirect("../")
-
-
-class ChecklistQuestionInline(admin.TabularInline):
-    model = ChecklistQuestion
-    extra = 0
-    can_delete = False
-    ordering = [
-        "order",
-    ]
-    formfield_overrides = {
-        TextField: {"widget": Textarea(attrs={"rows": 3, "cols": 60})},
-    }
-    fields = [
-        "text",
-        "answer_type",
-        "enabled",
-        "shown_to_others",
-        "order",
-    ]
-
-
-@admin.register(models.SectionChecklist)
-class SectionChecklistAdmin(admin.ModelAdmin):
-    list_display = [
-        "list_type_name",
-        "application_type_name",
-        "section_name",
-        "enabled",
-        "number_of_questions",
-    ]
-    list_filter = [
-        "application_type",
-        "section",
-        "list_type",
-        "enabled",
-    ]
-    inlines = [
-        ChecklistQuestionInline,
-    ]
-    form = SectionChecklistForm
-
-    def application_type_name(self, obj):
-        return obj.application_type.get_name_display()
-
-    def list_type_name(self, obj):
-        return obj.get_list_type_display()
-
-    def section_name(self, obj):
-        return obj.get_section_display()
-
-    # Configure column titles
-    application_type_name.short_description = "Application Type"
-    list_type_name.short_description = "List Type"
 
 
 @admin.register(SystemMaintenance)
