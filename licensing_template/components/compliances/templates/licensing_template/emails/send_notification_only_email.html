@@ -1,0 +1,18 @@
+{%  extends 'licensing_template/emails/base_email.html' %}
+
+{%  block content %}
+
+	<!-- Your Compliance with requirements {{ compliance.reference }} {{compliance.requirement.requirement}} is due for submission.   
+    <p>
+    You can access this Compliance using the following link:
+    </p>
+    <a href="{{url}}">Access Compliance</a> -->
+    <p>Please note the following condition that applies to your commercial operations licence or lawful authority {{ compliance.approval.lodgement_number }}:<br>
+ 	{{ compliance.reference }} {{compliance.requirement.requirement}}</p>  
+
+    <p>Please ensure the condition is complied with when conducting your approved operations and any requirements related to the condition are actioned accordingly.</p>
+    <!-- <p>
+    To complete the licence requirement please login to your account <a href="{{url}}">here</a>.
+    </p> -->
+
+{%  endblock %}

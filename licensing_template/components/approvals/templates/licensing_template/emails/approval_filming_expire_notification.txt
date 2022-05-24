@@ -1,0 +1,13 @@
+{%  extends 'licensing_template/emails/base_email.txt' %}
+
+{%  block content %}
+    Please be aware that your commercial operations licence {{ approval.lodgement_number }} expired on {{ approval.expiry_date}}
+
+    To submit a new application please click {{url}} here
+
+    If you would like to continue undertaking commercial filming operations withing WA's national parks and other conservation reserves you need a lawful authority or licence under the Conservation and Land Management Regulations 2002.
+
+    If you have any questions about how to apply for a new licence please contact a licensing office on {{settings.DEP_PHONE_FILMING}} or email {{settings.SUPPORT_EMAIL_FILMING}}
+    
+
+{%  endblock %}

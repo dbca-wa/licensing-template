@@ -1,0 +1,5 @@
+{%  extends 'licensing_template/emails/base_email.txt' %}
+
+{%  block content %}
+        Please find attached the invoice for the compliance fee, for Compliance <strong>{{ compliance_lodgement_number }} (application <strong>{{ proposal_lodgement_number }}), for your own records.
+{%  endblock %}
