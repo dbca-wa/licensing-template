@@ -16,10 +16,14 @@ from ledger_api_client.urls import urlpatterns as ledger_patterns
 from licensing_template.management.default_data_manager import DefaultDataManager
 from licensing_template.utils import are_migrations_running
 
+from licensing_template.components.proposals import api as proposal_api
 # API patterns
 router = routers.DefaultRouter()
+router.register(r"proposal", proposal_api.ProposalViewSet)
+router.register(r"proposal_paginated", proposal_api.ProposalPaginatedViewSet)
 
 api_patterns = [
+    url(r"^api/", include(router.urls)),
 ]
 
 # URL Patterns
@@ -46,6 +50,23 @@ urlpatterns = [
     url(
         r"^mgt-commands/$", views.ManagementCommandsView.as_view(), name="mgt-commands"
     ),
+    url(
+        r"^api/application_types$",
+        proposal_api.GetApplicationTypeDescriptions.as_view(),
+        name="get-application-type-descriptions",
+    ),
+    url(
+        r"^api/application_types_dict$",
+        proposal_api.GetApplicationTypeDict.as_view(),
+        name="get-application-type-dict",
+    ),
+
+    url(
+        r"^api/application_statuses_dict$",
+        proposal_api.GetApplicationStatusesDict.as_view(),
+        name="get-application-statuses-dict",
+    ),
+
 ] + ledger_patterns
 
 
