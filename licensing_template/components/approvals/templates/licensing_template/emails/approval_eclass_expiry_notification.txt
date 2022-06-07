@@ -1,9 +1,0 @@
-{%  extends 'licensing_template/emails/base_email.txt' %}
-
-{%  block content %}
-    The E Class licence
-    {{ approval.lodgement_number}} will expire on {{approval.expiry_date}}.
-    
-    This licence cannot be extended.
-   
-{%  endblock %}

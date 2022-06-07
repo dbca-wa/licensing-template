@@ -19,92 +19,6 @@ from django.db.models import JSONField
 from licensing_template import settings
 
 
-## TODO: remove ledger models
-
-##@python_2_unicode_compatible
-# class Organisation(models.Model):
-#    """This model represents the details of a company or other organisation.
-#    Management of these objects will be delegated to 0+ EmailUsers.
-#    """
-#    name = models.CharField(max_length=128, unique=True)
-#    abn = models.CharField(max_length=50, null=True, blank=True, verbose_name='ABN')
-#    # TODO: business logic related to identification file upload/changes.
-#    identification = models.FileField(upload_to='%Y/%m/%d', null=True, blank=True)
-#    postal_address = models.ForeignKey('OrganisationAddress', related_name='org_postal_address', blank=True, null=True, on_delete=models.SET_NULL)
-#    billing_address = models.ForeignKey('OrganisationAddress', related_name='org_billing_address', blank=True, null=True, on_delete=models.SET_NULL)
-#    email = models.EmailField(blank=True, null=True,)
-#    trading_name = models.CharField(max_length=256, null=True, blank=True)
-#
-#    def upload_identification(self, request):
-#        with transaction.atomic():
-#            self.identification = request.data.dict()['identification']
-#            self.save()
-#
-#    def __str__(self):
-#        return self.name
-#
-#    class Meta:
-#        #abstract = True
-#        managed = False
-#
-# class OrganisationAddress(BaseAddress):
-#    organisation = models.ForeignKey(Organisation, null=True,blank=True, related_name='adresses', on_delete=models.CASCADE)
-#    class Meta:
-#        verbose_name_plural = 'organisation addresses'
-#        unique_together = ('organisation','hash')
-#
-#    class Meta:
-#        #abstract = True
-#        managed = False
-
-#####
-
-
-class MapLayer(models.Model):
-    display_name = models.CharField(max_length=100, blank=True, null=True)
-    layer_name = models.CharField(max_length=200, blank=True, null=True)
-    option_for_internal = models.BooleanField(default=True)
-    option_for_external = models.BooleanField(default=True)
-    display_all_columns = models.BooleanField(default=False)
-    transparency = models.PositiveSmallIntegerField(
-        default=50
-    )  # Transparency of the layer. 0 means solid.  100 means fully transparent.
-
-    class Meta:
-        app_label = "licensing_template"
-        verbose_name = "map layer"
-
-    def __str__(self):
-        return "{0}, {1}".format(self.display_name, self.layer_name)
-
-    @property
-    def column_names(self):
-        column_names = []
-        for column in self.columns.all():
-            column_names.append(column.name)
-        return ",".join(column_names)
-
-
-class MapColumn(models.Model):
-    map_layer = models.ForeignKey(
-        MapLayer,
-        null=True,
-        blank=True,
-        related_name="columns",
-        on_delete=models.CASCADE,
-    )
-    name = models.CharField(max_length=100, blank=True, null=True)
-    option_for_internal = models.BooleanField(default=True)
-    option_for_external = models.BooleanField(default=True)
-
-    class Meta:
-        app_label = "licensing_template"
-        verbose_name = "map column"
-
-    def __str__(self):
-        return "{0}, {1}".format(self.map_layer, self.name)
-
-
 class RevisionedMixin(models.Model):
     """
     A model tracked by reversion through the save method.
@@ -346,19 +260,6 @@ class Document(models.Model):
 
 class GlobalSettings(models.Model):
     keys = (
-        # ('credit_facility_link', 'Credit Facility Link'),
-        # ('deed_poll', 'Deed poll'),
-        # ('deed_poll_filming', 'Deed poll Filming'),
-        # ('deed_poll_event', 'Deed poll Event'),
-        # ('online_training_document', 'Online Training Document'),
-        # ('park_finder_link', 'Park Finder Link'),
-        # ('fees_and_charges', 'Fees and charges link'),
-        # ('event_fees_and_charges', 'Event Fees and charges link'),
-        # ('commercial_filming_handbook', 'Commercial Filming Handbook link'),
-        # ('park_stay_link', 'Park Stay Link'),
-        # ('event_traffic_code_of_practice', 'Event traffic code of practice'),
-        # ('trail_section_map', 'Trail section map'),
-        # ('dwer_application_form', 'DWER Application Form'),
     )
     key = models.CharField(
         max_length=255,

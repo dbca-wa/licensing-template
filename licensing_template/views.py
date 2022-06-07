@@ -23,7 +23,6 @@ from datetime import datetime, timedelta
 from licensing_template.helpers import is_internal
 from licensing_template.forms import *
 from licensing_template.components.proposals.models import Referral, Proposal, HelpPage
-from licensing_template.components.compliances.models import Compliance
 from licensing_template.components.proposals.mixins import ReferralOwnerMixin
 
 # from ledger.checkout.utils import create_basket_session, create_checkout_session, place_order_submission, get_cookie_basket
@@ -70,16 +69,6 @@ class ReferralView(ReferralOwnerMixin, DetailView):
 
 class ExternalProposalView(DetailView):
     model = Proposal
-    template_name = "licensing_template/dash/index.html"
-
-
-class ExternalComplianceView(DetailView):
-    model = Compliance
-    template_name = "licensing_template/dash/index.html"
-
-
-class InternalComplianceView(DetailView):
-    model = Compliance
     template_name = "licensing_template/dash/index.html"
 
 

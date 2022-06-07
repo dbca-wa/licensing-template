@@ -10,9 +10,9 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
 from licensing_template.components.emails.emails import TemplateEmailBase
-from licensing_template.components.bookings.awaiting_payment_invoice_pdf import (
-    create_awaiting_payment_invoice_pdf_bytes,
-)
+#from licensing_template.components.bookings.awaiting_payment_invoice_pdf import (
+#    create_awaiting_payment_invoice_pdf_bytes,
+#)
 from datetime import datetime
 from ledger_api_client.ledger_models import EmailUserRO as EmailUser
 
@@ -22,61 +22,61 @@ logger = logging.getLogger(__name__)
 
 SYSTEM_NAME = settings.SYSTEM_NAME_SHORT + " Automated Message"
 
-# class ReferralSendNotificationEmail(TemplateEmailBase):
-#    subject = 'A referral for an application has been sent to you.'
-#    html_template = 'licensing_template/emails/proposals/send_referral_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_referral_notification.txt'
+class ReferralSendNotificationEmail(TemplateEmailBase):
+   subject = 'A referral for an application has been sent to you.'
+   html_template = 'licensing_template/emails/proposals/send_referral_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_referral_notification.txt'
 
 
-# class ReferralCompleteNotificationEmail(TemplateEmailBase):
-#    subject = 'A referral for an application has been completed.'
-#    html_template = 'licensing_template/emails/proposals/send_referral_complete_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_referral_complete_notification.txt'
+class ReferralCompleteNotificationEmail(TemplateEmailBase):
+   subject = 'A referral for an application has been completed.'
+   html_template = 'licensing_template/emails/proposals/send_referral_complete_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_referral_complete_notification.txt'
 
-# class ProposalDeclineSendNotificationEmail(TemplateEmailBase):
-#    subject = 'Your Application has been declined.'
-#    html_template = 'licensing_template/emails/proposals/send_decline_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_decline_notification.txt'
+class ProposalDeclineSendNotificationEmail(TemplateEmailBase):
+   subject = 'Your Application has been declined.'
+   html_template = 'licensing_template/emails/proposals/send_decline_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_decline_notification.txt'
 
-# class ProposalApprovalSendNotificationEmail(TemplateEmailBase):
-#    subject = '{} - Commercial Operations Licence Approved.'.format(settings.DEP_NAME)
-#    html_template = 'licensing_template/emails/proposals/send_approval_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_approval_notification.txt'
+class ProposalApprovalSendNotificationEmail(TemplateEmailBase):
+   subject = '{} - Commercial Operations Licence Approved.'.format(settings.DEP_NAME)
+   html_template = 'licensing_template/emails/proposals/send_approval_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_approval_notification.txt'
 
-# class ProposalAwaitingPaymentApprovalSendNotificationEmail(TemplateEmailBase):
-#    subject = '{} - Commercial Filming Application - Pending Payment.'.format(settings.DEP_NAME)
-#    html_template = 'licensing_template/emails/proposals/send_awaiting_payment_approval_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_awaiting_payment_approval_notification.txt'
+class ProposalAwaitingPaymentApprovalSendNotificationEmail(TemplateEmailBase):
+   subject = '{} - Commercial Filming Application - Pending Payment.'.format(settings.DEP_NAME)
+   html_template = 'licensing_template/emails/proposals/send_awaiting_payment_approval_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_awaiting_payment_approval_notification.txt'
 
-# class AmendmentRequestSendNotificationEmail(TemplateEmailBase):
-#    subject = '{} - Commercial Operations Incomplete application.'.format(settings.DEP_NAME)
-#    html_template = 'licensing_template/emails/proposals/send_amendment_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_amendment_notification.txt'
+class AmendmentRequestSendNotificationEmail(TemplateEmailBase):
+   subject = '{} - Commercial Operations Incomplete application.'.format(settings.DEP_NAME)
+   html_template = 'licensing_template/emails/proposals/send_amendment_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_amendment_notification.txt'
 
-# class SubmitSendNotificationEmail(TemplateEmailBase):
-#    subject = 'A new Application has been submitted.'
-#    html_template = 'licensing_template/emails/proposals/send_submit_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_submit_notification.txt'
+class SubmitSendNotificationEmail(TemplateEmailBase):
+   subject = 'A new Application has been submitted.'
+   html_template = 'licensing_template/emails/proposals/send_submit_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_submit_notification.txt'
 
-# class ExternalSubmitSendNotificationEmail(TemplateEmailBase):
-#    subject = '{} - Confirmation - Application submitted.'.format(settings.DEP_NAME)
-#    html_template = 'licensing_template/emails/proposals/send_external_submit_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_external_submit_notification.txt'
+class ExternalSubmitSendNotificationEmail(TemplateEmailBase):
+   subject = '{} - Confirmation - Application submitted.'.format(settings.DEP_NAME)
+   html_template = 'licensing_template/emails/proposals/send_external_submit_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_external_submit_notification.txt'
 
-# class ApproverDeclineSendNotificationEmail(TemplateEmailBase):
-#    subject = 'A {} has been recommended for decline.'.format(application_type)
-#    html_template = 'licensing_template/emails/proposals/send_approver_decline_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_approver_decline_notification.txt'
+class ApproverDeclineSendNotificationEmail(TemplateEmailBase):
+   #subject = 'A {} has been recommended for decline.'.format(application_type)
+   html_template = 'licensing_template/emails/proposals/send_approver_decline_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_approver_decline_notification.txt'
 
-# class ApproverApproveSendNotificationEmail(TemplateEmailBase):
-#    subject = 'A {} has been recommended for approval.'.format(application_type)
-#    html_template = 'licensing_template/emails/proposals/send_approver_approve_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_approver_approve_notification.txt'
+class ApproverApproveSendNotificationEmail(TemplateEmailBase):
+   #subject = 'A {} has been recommended for approval.'.format(application_type)
+   html_template = 'licensing_template/emails/proposals/send_approver_approve_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_approver_approve_notification.txt'
 
-# class ApproverSendBackNotificationEmail(TemplateEmailBase):
-#    subject = 'An Application has been sent back by approver.'
-#    html_template = 'licensing_template/emails/proposals/send_approver_sendback_notification.html'
-#    txt_template = 'licensing_template/emails/proposals/send_approver_sendback_notification.txt'
+class ApproverSendBackNotificationEmail(TemplateEmailBase):
+   subject = 'An Application has been sent back by approver.'
+   html_template = 'licensing_template/emails/proposals/send_approver_sendback_notification.html'
+   txt_template = 'licensing_template/emails/proposals/send_approver_sendback_notification.txt'
 
 
 def send_referral_email_notification(referral, recipients, request, reminder=False):

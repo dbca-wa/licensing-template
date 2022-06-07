@@ -55,12 +55,8 @@ INSTALLED_APPS += [
     "webtemplate_dbca",
     "licensing_template",
     "licensing_template.components.main",
-    "licensing_template.components.organisations",
     "licensing_template.components.users",
     "licensing_template.components.proposals",
-    "licensing_template.components.approvals",
-    "licensing_template.components.compliances",
-    "licensing_template.components.bookings",
     "rest_framework",
     "rest_framework_datatables",
     "rest_framework_gis",
@@ -109,30 +105,12 @@ MIDDLEWARE_CLASSES = None
 
 TEMPLATES[0]["DIRS"].append(os.path.join(BASE_DIR, "licensing_template", "templates"))
 TEMPLATES[0]["DIRS"].append(
-    os.path.join(
-        BASE_DIR, "licensing_template", "components", "organisations", "templates"
-    )
-)
-TEMPLATES[0]["DIRS"].append(
     os.path.join(BASE_DIR, "licensing_template", "components", "emails", "templates")
 )
 TEMPLATES[0]["OPTIONS"]["context_processors"].append(
     "licensing_template.context_processors.licensing_template_url"
 )
 
-#del BOOTSTRAP3["css_url"]
-
-# BOOTSTRAP3 = {
-#    'jquery_url': '//static.dpaw.wa.gov.au/static/libs/jquery/2.2.1/jquery.min.js',
-#    'base_url': '//static.dpaw.wa.gov.au/static/libs/twitter-bootstrap/3.3.6/',
-#    'css_url': None,
-#    'theme_url': None,
-#    'javascript_url': None,
-#    'javascript_in_head': False,
-#    'include_jquery': False,
-#    'required_css_class': 'required-form-field',
-#    'set_placeholder': False,
-# }
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",

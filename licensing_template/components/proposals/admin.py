@@ -3,7 +3,6 @@ from django.db.models import TextField
 from django.forms import Textarea
 from ledger_api_client.ledger_models import EmailUserRO as EmailUser
 from licensing_template.components.proposals import models
-from licensing_template.components.bookings.models import ApplicationFeeInvoice
 from licensing_template.components.proposals import forms
 from licensing_template.components.main.models import (
     SystemMaintenance,

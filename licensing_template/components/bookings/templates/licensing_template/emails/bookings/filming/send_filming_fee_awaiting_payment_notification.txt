@@ -1,5 +1,0 @@
-{%  extends 'licensing_template/emails/base_email.txt' %}
-
-{%  block content %}
-        Please find attached the confirmation for the application fee awaiting payment, for Application <strong>{{ lodgement_number }}, for your own records.
-{%  endblock %}

@@ -24,11 +24,11 @@ from ledger_api_client.country_models import Country
 from ledger_api_client.managed_models import SystemGroup
 from licensing_template import exceptions
 from licensing_template.components.main.utils import get_department_user
-from licensing_template.components.organisations.models import (
-    Organisation,
-    OrganisationContact,
-    UserDelegation,
-)
+#from licensing_template.components.organisations.models import (
+#    Organisation,
+#    OrganisationContact,
+#    UserDelegation,
+#)
 from licensing_template.components.main.models import (
     # Organisation as ledger_organisation, OrganisationAddress,
     CommunicationsLogEntry,
@@ -105,35 +105,6 @@ class DefaultDocument(Document):
                 self.name
             )
         )
-
-
-class ShapefileDocument(Document):
-    proposal = models.ForeignKey(
-        "Proposal", related_name="shapefile_documents", on_delete=models.CASCADE
-    )
-    _file = models.FileField(upload_to=update_proposal_doc_filename, max_length=500)
-    input_name = models.CharField(max_length=255, null=True, blank=True)
-    can_delete = models.BooleanField(
-        default=True
-    )  # after initial submit prevent document from being deleted
-    can_hide = models.BooleanField(
-        default=False
-    )  # after initial submit, document cannot be deleted but can be hidden
-    hidden = models.BooleanField(
-        default=False
-    )  # after initial submit prevent document from being deleted
-
-    def delete(self):
-        if self.can_delete:
-            return super(ShapefileDocument, self).delete()
-        logger.info(
-            "Cannot delete existing document object after Proposal has been submitted (including document submitted before Proposal pushback to status Draft): {}".format(
-                self.name
-            )
-        )
-
-    class Meta:
-        app_label = "licensing_template"
 
 
 class ProposalApplicantDetails(models.Model):
@@ -252,13 +223,13 @@ class Proposal(DirtyFieldsMixin, models.Model):
     )
     proposed_issuance_approval = JSONField(blank=True, null=True)
     ind_applicant = models.IntegerField(null=True, blank=True)  # EmailUserRO
-    org_applicant = models.ForeignKey(
-        Organisation,
-        blank=True,
-        null=True,
-        related_name="org_applications",
-        on_delete=models.SET_NULL,
-    )
+    #org_applicant = models.ForeignKey(
+    #    Organisation,
+    #    blank=True,
+    #    null=True,
+    #    related_name="org_applications",
+    #    on_delete=models.SET_NULL,
+    #)
     proxy_applicant = models.IntegerField(null=True, blank=True)  # EmailUserRO
     lodgement_number = models.CharField(max_length=9, blank=True, default="")
     lodgement_sequence = models.IntegerField(blank=True, default=0)
@@ -275,9 +246,9 @@ class Proposal(DirtyFieldsMixin, models.Model):
     )
     prev_processing_status = models.CharField(max_length=30, blank=True, null=True)
 
-    approval = models.ForeignKey(
-        "licensing_template.Approval", null=True, blank=True, on_delete=models.SET_NULL
-    )
+    #approval = models.ForeignKey(
+    #    "licensing_template.Approval", null=True, blank=True, on_delete=models.SET_NULL
+    #)
     previous_application = models.ForeignKey(
         "self", blank=True, null=True, on_delete=models.SET_NULL
     )
@@ -1536,22 +1507,6 @@ class ProposalRequest(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.subject, self.text)
-
-    class Meta:
-        app_label = "licensing_template"
-
-
-class ComplianceRequest(ProposalRequest):
-    REASON_CHOICES = (
-        (
-            "outstanding",
-            "There are currently outstanding returns for the previous licence",
-        ),
-        ("other", "Other"),
-    )
-    reason = models.CharField(
-        "Reason", max_length=30, choices=REASON_CHOICES, default=REASON_CHOICES[0][0]
-    )
 
     class Meta:
         app_label = "licensing_template"

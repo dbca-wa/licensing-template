@@ -30,8 +30,8 @@ class TemplateEmailBase(object):
     def __init__(
         self,
         subject="",
-        html_template="licensing_template/emails/base_email.html",
-        txt_template="licensing_template/emails/base-email.txt",
+        html_template="leaseslicensing/emails/base_email.html",
+        txt_template="leaseslicensing/emails/base-email.txt",
     ):
         self.subject = subject
         self.html_template = html_template

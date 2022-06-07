@@ -50,7 +50,7 @@ def belongs_to(user, group_name):
 def is_licensing_template_admin(request):
     # logger.info('settings.ADMIN_GROUP: {}'.format(settings.ADMIN_GROUP))
     return request.user.is_authenticated and (
-        belongs_to(request.user, settings.ADMIN_GROUP) or request.user.is_superuser
+        request.user.is_superuser or belongs_to(request.user, settings.ADMIN_GROUP)
     )
 
 

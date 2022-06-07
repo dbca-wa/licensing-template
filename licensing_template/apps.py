@@ -12,7 +12,7 @@ class LicensingTemplateConfig(AppConfig):
 
     def ready(self):
         if not self.run_once:
-            from licensing_template.components.organisations import signals
+            #from licensing_template.components.organisations import signals
             from licensing_template.components.proposals import signals
 
         self.run_once = True
