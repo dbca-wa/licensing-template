@@ -23,4 +23,5 @@ do
 done &&
 
 # replace all occurrences of "licensing_system" with new system name
-find . -type f -exec sed -i "s/licensing_template/$1/g" {} \;
+#find . -type f -exec sed -i "s/licensing_template/$1/g" {} \;
+find . -path ./.git -prune -o -print | xargs sed -i "s/licensing_template/$1/g"
