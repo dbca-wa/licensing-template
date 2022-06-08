@@ -17,7 +17,7 @@ gitdir=${gitrepo/"-"/"_"}
 # clone gitrepo
 {
     cd ../
-    git clone git@github.com:$gituser/$gitrepo.git test_dir
+    git clone git@github.com:$gituser/$gitrepo.git $gitrepo
 } ||
 {
     echo "Error: $gitrepo repo/fork does not exist on your Github account $gituser"
@@ -48,7 +48,7 @@ find . -type f -exec sed -i "s/licensing_template/$gitdir/g" {} \;
 
 # clean licensing-template, copy files to new project then delete licensing-template
 rm -rf .git && rm rename_project.sh &&
-cd ../ && cp -r licensing-template/ test_dir/ &&
+cd ../ && cp -r licensing-template/ $gitrepo/ &&
 
 echo "Files have been copied to your new repo" &&
 rm -rf licensing-template/
