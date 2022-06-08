@@ -47,8 +47,8 @@ done &&
 find . -type f -exec sed -i "s/licensing_template/$gitdir/g" {} \;
 
 # clean licensing-template, copy files to new project then delete licensing-template
-rm -rf .git && rm rename_project.sh &&
-cd ../ && cp -r licensing-template/ $gitrepo/ &&
+rm -rf .git && rm create_project.sh &&
+cd ../ && cp -r licensing-template/. $gitrepo/ &&
 
 echo "Files have been copied to your new repo" &&
 rm -rf licensing-template/
