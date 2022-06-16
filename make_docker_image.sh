@@ -10,7 +10,8 @@ fi
 
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 #REPO=$(basename -s .git `git config --get remote.origin.url` | sed 's/-//g')
-REPO=$(awk '{split($0, arr, "\/"); print arr[2]}' <<< $(git config -l|grep remote|grep url|head -n 1|sed 's/-//g'|sed 's/....$//'))
+REPO_NO_DASH=$(awk '{split($0, arr, "\/"); print arr[2]}' <<< $(git config -l|grep remote|grep url|head -n 1|sed 's/-//g'|sed 's/....$//'))
+REPO=$(awk '{split($0, arr, "\/"); print arr[2]}' <<< $(git config -l|grep remote|grep url|head -n 1|sed 's/....$//'))
 BUILD_TAG=dbcawa/$REPO:$1_v$(date +%Y.%m.%d.%H.%M%S)
 DBCA_ORIGIN_HASH=$(echo "$REPO" | md5sum -t | cut -c1-32)
 DBCA_BRANCH=$DBCA_ORIGIN_HASH"_"$1
@@ -45,7 +46,7 @@ EXISTING_REMOTES=$(git remote)
 }
 {
     git pull &&
-    cd $REPO/frontend/$REPO/ &&
+    cd $REPO_NO_DASH/frontend/$REPO_NO_DASH/ &&
     npm run build &&
     cd ../../../ &&
     poetry run python manage.py collectstatic --no-input &&
