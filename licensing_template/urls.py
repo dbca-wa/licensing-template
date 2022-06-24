@@ -10,6 +10,7 @@ from django.contrib.auth import logout, login  # DEV ONLY
 
 from django.conf.urls.static import static
 from rest_framework import routers
+from django_media_serv.urls import urlpatterns as media_serv_patterns
 from licensing_template import views
 
 from ledger_api_client.urls import urlpatterns as ledger_patterns
@@ -67,11 +68,10 @@ urlpatterns = [
         name="get-application-statuses-dict",
     ),
 
-] + ledger_patterns
+] + ledger_patterns + media_serv_patterns
 
 
-if settings.DEBUG:  # Serve media locally in development.
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if not are_migrations_running():
     DefaultDataManager()
